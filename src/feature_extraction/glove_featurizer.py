@@ -1,5 +1,6 @@
 import logging
 
+import numpy as np
 from gensim.models import KeyedVectors
 from sklearn.base import BaseEstimator, TransformerMixin
 
@@ -24,8 +25,8 @@ class GloveFeaturizer(BaseEstimator, TransformerMixin):
             vectors = []
             for word in instance:
                 vectors.append(self._get_embedding(word))
-            result.append(vectors)
-        return result
+            result.append(np.array(vectors))
+        return np.array(result)
 
     def _get_embedding(self, word):
         if word in self.model:
