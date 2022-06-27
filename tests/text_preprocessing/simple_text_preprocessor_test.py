@@ -18,8 +18,6 @@ class SimpleTextPreprocessorTest(unittest.TestCase):
         ]
         outputs = transformer.transform(inputs)
         self.assertEqual(len(inputs), len(outputs))
-        self.assertEqual(2, len(outputs[0]))
-        self.assertEqual(7, len(outputs[1]))
 
     def test_process_string(self):
         input_text = "Olá mundo! Comprei 1,2,3,4."
@@ -29,11 +27,11 @@ class SimpleTextPreprocessorTest(unittest.TestCase):
         result_text = transformer._process_string(input_text)
         self.assertEqual(expected_text, result_text)
 
-    def test_tokenize_string(self):
+    def test_remove_stop_words_string(self):
         input_text = "Olá mundo and hello world!"
-        expected_tokens = ["Olá", "mundo", "hello", "world", "!"]
+        expected = "Olá mundo hello world !"
 
         transformer = SimpleTextPreprocessor()
-        result_tokens = transformer._simple_tokenize(input_text)
+        result = transformer._remove_stop_words(input_text)
 
-        self.assertEqual(expected_tokens, result_tokens)
+        self.assertEqual(expected, result)

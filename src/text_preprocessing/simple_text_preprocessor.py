@@ -7,7 +7,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 class SimpleTextPreprocessor(BaseEstimator, TransformerMixin):
     """
-    PreProcess text into list of tokens.
+    PreProcess text.
     """
 
     def fit(self, X, y=None):
@@ -17,7 +17,7 @@ class SimpleTextPreprocessor(BaseEstimator, TransformerMixin):
         result = []
         for instance in X:
             new_instance = self._process_string(instance)
-            new_instance = self._simple_tokenize(new_instance)
+            new_instance = self._remove_stop_words(new_instance)
             result.append(new_instance)
         return result
 
@@ -29,7 +29,7 @@ class SimpleTextPreprocessor(BaseEstimator, TransformerMixin):
         return new_text.strip()
 
     @staticmethod
-    def _simple_tokenize(text):
+    def _remove_stop_words(text):
         words = word_tokenize(text)
         words = [word for word in words if word not in STOPWORDS]
-        return words
+        return " ".join(words)

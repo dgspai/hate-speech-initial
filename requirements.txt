@@ -6,3 +6,4 @@ keras
 xgboost
 pandas
 pylint
+tensorflow
